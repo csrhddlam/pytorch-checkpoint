@@ -42,7 +42,7 @@ bottleneck_output = cp.CheckpointFunction.apply(bn_function, len(prev_features),
 Note: We recommend using checkpointing with cp_BatchNorm2d instead of torch.nn.BatchNorm2d, to avoid accumulating the same batch norm statistics more than once.
 
 ## Demo
-[python-fire](https://github.com/google/python-fire) is required for the efficient densenet demo, but not for checkpointing:
+[python-fire](https://github.com/google/python-fire) is not required for checkpointing, but is required for the efficient densenet demo.
 ```
 pip install fire
 ```

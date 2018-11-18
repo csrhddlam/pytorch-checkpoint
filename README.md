@@ -17,7 +17,7 @@ This repo contains a PyTorch implemention that can work on multiple GPUs.
 |This repo|2|256|2.97G|0.31s|
 
 ## Documentation
-
+The main function is checkpoint.py
 ```python
 import checkpoint
 checkpoint.CheckpointFunction.apply(function, n, *args)
@@ -31,8 +31,11 @@ Parameters:
 
 Returns:	
   * Output of running function on inputs to the function
+
+Note: We recommend using checkpointing with cp_BatchNorm2d instead of torch.nn.BatchNorm2d, to avoid accumulating the same batch norm statistics more than once.
   
-## Example
+## DenseNet example
+We provide an example of applying our checkpointing on [memory efficient densenet](https://github.com/gpleiss/efficient_densenet_pytorch). It only involves changing a few lines in the original implementation. (The original implementation uses PyTorch official checkpointing.)
 ```python
 # bn_function is a function containing conv1, norm1, relu1.
 # naive no checkpointing: bottleneck_output = bn_function(*prev_features)
@@ -41,24 +44,24 @@ args = prev_features + tuple(self.norm1.parameters()) + tuple(self.conv1.paramet
 # The parameters to optimize in the bn_function are tuple(self.norm1.parameters()) + tuple(self.conv1.parameters())
 bottleneck_output = cp.CheckpointFunction.apply(bn_function, len(prev_features), *args)
 ```
-Note: We recommend using checkpointing with cp_BatchNorm2d instead of torch.nn.BatchNorm2d, to avoid accumulating the same batch norm statistics more than once.
 
 ## Demo
 [python-fire](https://github.com/google/python-fire) is not required for checkpointing, but is required for the efficient densenet demo.
 ```
 pip install fire
 ```
-To run our checkpointing demo:
+  * our checkpointing demo:
 ```
 CUDA_VISIBLE_DEVICES=0,1 python cp_demo.py --efficient True --data cifar --save model --batch_size 256
 ```
-To run the official implementation demo:
+  * the official implementation demo:
 ```
 CUDA_VISIBLE_DEVICES=0,1 python original_demo.py --efficient True --data cifar --save model --batch_size 256
 ```
 
 ## Environment
 This code is tested with PyTorch 1.0.0.dev20181102
+
 Speed tested on TITAN X (Pascal)
 
 ## Full results

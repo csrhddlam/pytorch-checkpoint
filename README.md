@@ -17,7 +17,7 @@ This repo contains a PyTorch implemention that can work on multiple GPUs.
 |This repo|2|256|2.97G|0.31s|
 
 ## Documentation
-The main function is checkpoint.py
+The main functionality is in checkpoint.py
 ```python
 import checkpoint
 checkpoint.CheckpointFunction.apply(function, n, *args)

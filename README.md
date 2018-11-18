@@ -19,6 +19,7 @@ This repo contains a PyTorch implemention that can work on multiple GPUs.
 ## Documentation
 
 ```python
+import checkpoint
 checkpoint.CheckpointFunction.apply(function, n, *args)
 ```
 
@@ -47,13 +48,18 @@ Note: We recommend using checkpointing with cp_BatchNorm2d instead of torch.nn.B
 ```
 pip install fire
 ```
-To run the demo:
+To run our checkpointing demo:
 ```
 CUDA_VISIBLE_DEVICES=0,1 python cp_demo.py --efficient True --data cifar --save model --batch_size 256
+```
+To run the official implementation demo:
+```
+CUDA_VISIBLE_DEVICES=0,1 python original_demo.py --efficient True --data cifar --save model --batch_size 256
 ```
 
 ## Environment
 This code is tested with PyTorch 1.0.0.dev20181102
+Speed tested on TITAN X (Pascal)
 
 ## Full results
 

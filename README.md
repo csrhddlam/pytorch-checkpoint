@@ -12,9 +12,9 @@ This repo contains a PyTorch implemention that can work on multiple GPUs.
 
 | Method | # GPU | Batch | Memory | Time  |
 |--------|:----:|:-----:|:------:|:-----:|
-|Naive|2|256| 5.25G   | 0.27s |
-|Official|2|256|2.98G|1.41s|
-|This repo|2|256|2.97G|0.31s|
+|Naive|2|256| 5.25G   | **0.27s** |
+|Official|2|256|**2.98G**|1.41s|
+|This repo|2|256|**2.97G**|**0.31s**|
 
 ## Documentation
 The main functionality is in checkpoint.py
